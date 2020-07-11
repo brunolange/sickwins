@@ -7,13 +7,15 @@
 ```
 $ pip install sickwins
 $ sickwins --help
-usage: sickwins.py [-h] folder
+usage: sickwins [-h] [--duration DURATION] [--quantizer QUANTIZER] folder
 
 positional arguments:
-  folder      Folder containing the images
+  folder                Folder containing the images
 
 optional arguments:
-  -h, --help  show this help message and exit
+  -h, --help            show this help message and exit
+  --duration DURATION   Seconds per frame
+  --quantizer QUANTIZER, -q QUANTIZER
 ```
 
 Example:
