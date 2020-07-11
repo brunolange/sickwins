@@ -5,10 +5,23 @@ import imageio
 import tqdm
 
 
-__author__ = "Bruno Lange"
+__all__ = ["main"]
 
 
-def main(config):
+def validate_folder(value):
+    path = os.path.realpath(value)
+    if not os.path.isdir(path):
+        raise argparse.ArgumentTypeError("Need a valid folder")
+    return path
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "folder", help="Folder containing the images", type=validate_folder
+    )
+    config = parser.parse_args()
+
     files = sorted(
         [
             f
@@ -25,18 +38,3 @@ def main(config):
             writer.append_data(image)
 
     print(f"Saved gif to {output}")
-
-
-def validate_folder(value):
-    path = os.path.realpath(value)
-    if not os.path.isdir(path):
-        raise argparse.ArgumentTypeError("Need a valid folder")
-    return path
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "folder", help="Folder containing the images", type=validate_folder
-    )
-    main(parser.parse_args())
