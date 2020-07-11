@@ -20,6 +20,8 @@ def main():
     parser.add_argument(
         "folder", help="Folder containing the images", type=validate_folder
     )
+    parser.add_argument("--duration", default=0.5, help="Seconds per frame", type=float)
+    parser.add_argument("--quantizer", "-q", default="nq")
     config = parser.parse_args()
 
     files = sorted(
@@ -31,7 +33,7 @@ def main():
     )
     output = os.path.join(config.folder, "movie.gif")
     with imageio.get_writer(
-        output, "GIF-FI", mode="I", duration=2, quantizer="nq"
+        output, "GIF-FI", mode="I", duration=config.duration, quantizer=config.quantizer
     ) as writer:
         for file in tqdm.tqdm(files, desc="Writing gif from images..."):
             image = imageio.imread(os.path.join(config.folder, file))
