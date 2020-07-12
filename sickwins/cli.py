@@ -40,7 +40,11 @@ def main():
         quantizer=config.quantizer,
     ) as writer:
         for file in tqdm.tqdm(files, desc="Writing gif from images..."):
-            image = imageio.imread(os.path.join(config.folder, file))
+            try:
+                image = imageio.imread(os.path.join(config.folder, file))
+            except ValueError:
+                continue
+            rows, columns, __ = image.shape
             writer.append_data(image)
 
     print(f"Saved gif to {config.output}")
