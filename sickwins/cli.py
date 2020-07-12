@@ -44,7 +44,6 @@ def main():
                 image = imageio.imread(os.path.join(config.folder, file))
             except ValueError:
                 continue
-            rows, columns, __ = image.shape
             writer.append_data(image)
 
     print(f"Saved gif to {config.output}")
